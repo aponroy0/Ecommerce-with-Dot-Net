@@ -1,0 +1,47 @@
+﻿using Ecommerce.EF;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+
+namespace Ecommerce.Controllers
+{
+    public class LoginController : Controller
+    {
+        EcommEntities1 db = new EcommEntities1();
+
+        [HttpGet]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult Index(string email, string password)
+        {
+            // Here, we are cheking if the value exist in the database for authentication
+            var user = (from u in db.Users
+                        where
+                        u.Email.Equals(email) &&
+                        u.Password.Equals(password)
+                        select u).SingleOrDefault();
+
+
+            
+            if (user != null)
+            {
+                Session["user"] = user;
+                return RedirectToAction("Index", "Order");
+            }
+
+            TempData["msg"] = "Invalid username and password!";
+            TempData["class"] = "danger";
+            return View();
+
+         }
+    }
+}
