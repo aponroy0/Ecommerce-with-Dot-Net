@@ -11,7 +11,7 @@ namespace Ecommerce.Controllers
 {
     public class LoginController : Controller
     {
-        EcommEntities1 db = new EcommEntities1();
+        EcommEntities4 db = new EcommEntities4();
 
         [HttpGet]
         public ActionResult Index()
@@ -35,7 +35,7 @@ namespace Ecommerce.Controllers
             if (user != null)
             {
                 Session["user"] = user;
-                return RedirectToAction("Index", "Order");
+                return RedirectToAction("Index", "Customer");
             }
 
             TempData["msg"] = "Invalid username and password!";

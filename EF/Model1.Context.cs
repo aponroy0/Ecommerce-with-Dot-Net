@@ -13,10 +13,10 @@ namespace Ecommerce.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EcommEntities1 : DbContext
+    public partial class EcommEntities4 : DbContext
     {
-        public EcommEntities1()
-            : base("name=EcommEntities1")
+        public EcommEntities4()
+            : base("name=EcommEntities4")
         {
         }
     
@@ -30,7 +30,6 @@ namespace Ecommerce.EF
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Status> Status { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
         public DbSet<User> Users { get; set; }
     }
 }

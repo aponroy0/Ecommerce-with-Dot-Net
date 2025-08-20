@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fe6bad1d9f054a058f3cb5d2b73df1b1" Name="Diagram1">
+        <EntityTypeShape EntityType="EcommModel.Customer" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommModel.Order" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommModel.OrderDetail" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommModel.Product" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommModel.Status" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EcommModel.User" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="EcommModel.FK_For_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommModel.FK_For_OId" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommModel.FK_For_Status_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommModel.FK_For_PId" ManuallyRouted="false" />
+        <AssociationConnector Association="EcommModel.FK_Customer_Customer" />
+        <AssociationConnector Association="EcommModel.FK_for__customer" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

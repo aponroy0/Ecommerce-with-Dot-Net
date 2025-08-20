@@ -11,7 +11,6 @@
     <Property Name="Phone" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Customer1" Relationship="Self.FK_Customer_Customer" FromRole="Customer" ToRole="Customer1" />
     <NavigationProperty Name="Customer2" Relationship="Self.FK_Customer_Customer" FromRole="Customer1" ToRole="Customer" />
-    <NavigationProperty Name="Users" Relationship="EcommModel.FK_Table_1_Table_1" FromRole="Customer" ToRole="User" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -73,11 +72,6 @@
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="CustomerId" Type="Int32" />
-    <NavigationProperty Name="Customer" Relationship="EcommModel.FK_Table_1_Table_1" FromRole="User" ToRole="Customer" />
-    <NavigationProperty Name="User1" Relationship="EcommModel.FK_Table_1_Table_11" FromRole="User" ToRole="User1" />
-    <NavigationProperty Name="User2" Relationship="EcommModel.FK_Table_1_Table_11" FromRole="User1" ToRole="User" />
-    <NavigationProperty Name="User11" Relationship="EcommModel.FK_User_User" FromRole="User" ToRole="User1" />
-    <NavigationProperty Name="User3" Relationship="EcommModel.FK_User_User" FromRole="User1" ToRole="User" />
   </EntityType>
   <Association Name="FK_Customer_Customer">
     <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
@@ -115,7 +109,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="EcommEntities1" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="EcommEntities3" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="Orders" EntityType="Self.Order" />
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
@@ -135,53 +129,5 @@
       <End Role="Product" EntitySet="Products" />
       <End Role="OrderDetails" EntitySet="OrderDetails" />
     </AssociationSet>
-    <AssociationSet Name="FK_Table_1_Table_1" Association="EcommModel.FK_Table_1_Table_1">
-      <End Role="Customer" EntitySet="Customers" />
-      <End Role="User" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Table_1_Table_11" Association="EcommModel.FK_Table_1_Table_11">
-      <End Role="User" EntitySet="Users" />
-      <End Role="User1" EntitySet="Users" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_User" Association="EcommModel.FK_User_User">
-      <End Role="User" EntitySet="Users" />
-      <End Role="User1" EntitySet="Users" />
-    </AssociationSet>
   </EntityContainer>
-  <Association Name="FK_Table_1_Table_1">
-    <End Type="EcommModel.Customer" Role="Customer" Multiplicity="0..1" />
-    <End Type="EcommModel.User" Role="User" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Customer">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="CustomerId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Table_1_Table_11">
-    <End Type="EcommModel.User" Role="User" Multiplicity="1" />
-    <End Type="EcommModel.User" Role="User1" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User1">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_User">
-    <End Type="EcommModel.User" Role="User" Multiplicity="1" />
-    <End Type="EcommModel.User" Role="User1" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User1">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema>

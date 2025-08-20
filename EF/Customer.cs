@@ -14,13 +14,21 @@ namespace Ecommerce.EF
     
     public partial class Customer
     {
+        public Customer()
+        {
+            this.Users = new HashSet<User>();
+            this.Orders = new HashSet<Order>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string Username { get; set; }
         public int Phone { get; set; }
     
+        public virtual ICollection<User> Users { get; set; }
         public virtual Customer Customer1 { get; set; }
         public virtual Customer Customer2 { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

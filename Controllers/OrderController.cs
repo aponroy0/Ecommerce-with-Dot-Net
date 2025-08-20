@@ -13,7 +13,7 @@ namespace EComm.Controllers
     public class OrderController : Controller
     {
         // 
-        EcommEntities1 db = new EcommEntities1();
+        EcommEntities4 db = new EcommEntities4();
 
         static Mapper GetMapper()
         {
@@ -55,6 +55,28 @@ namespace EComm.Controllers
         {
             var cart = (List<ProductDTO>)Session["cart"];
             return View(cart);
+        }
+
+
+// This scope of code is for cencel the order
+        [Logged]
+        public ActionResult CancelByUser(int id)
+        {
+            var od = db.Orders.Find(id);
+            od.StatusId = 3;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Customer");
+        }
+
+
+// This scope of code to show the details of orders.
+// Orders is list of orders. We find the specific order using customerID....
+
+        [Logged]
+        public ActionResult Details(int id)
+        {
+            var od = db.Orders.Find(id);
+            return View(od);
         }
     }
 }

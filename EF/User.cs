@@ -19,5 +19,8 @@ namespace Ecommerce.EF
         public string Password { get; set; }
         public string Email { get; set; }
         public string Type { get; set; }
+        public int CustomerId { get; set; }
+    
+        public virtual Customer Customer { get; set; }
     }
 }

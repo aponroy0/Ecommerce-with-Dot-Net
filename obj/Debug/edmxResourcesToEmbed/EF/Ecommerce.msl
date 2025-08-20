@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="EcommModelStoreContainer" CdmEntityContainer="EcommEntities1">
+  <EntityContainerMapping StorageEntityContainer="EcommModelStoreContainer" CdmEntityContainer="EcommEntities3">
     <EntitySetMapping Name="Customers">
       <EntityTypeMapping TypeName="EcommModel.Customer">
         <MappingFragment StoreEntitySet="Customer">
@@ -66,12 +66,12 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="EcommModel.User">
         <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

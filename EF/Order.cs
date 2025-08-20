@@ -14,12 +14,19 @@ namespace Ecommerce.EF
     
     public partial class Order
     {
+        public Order()
+        {
+            this.OrderDetails = new HashSet<OrderDetail>();
+        }
+    
         public int Id { get; set; }
         public System.DateTime Date { get; set; }
         public int StatusId { get; set; }
         public int CustomerId { get; set; }
         public decimal Total { get; set; }
     
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual Status Status { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

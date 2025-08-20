@@ -46,16 +46,6 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="varchar" MaxLength="50" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-    <Property Name="principal_id" Type="int" Nullable="false" />
-    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="version" Type="int" />
-    <Property Name="definition" Type="varbinary(max)" />
-  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="Id" />
@@ -65,33 +55,45 @@
     <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="CustomerId" Type="int" />
+    <Property Name="CustomerId" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Customer_Customer">
+  <Association Name="FK_for _customer">
     <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-    <End Role="Customer1" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Customer">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Customer1">
-        <PropertyRef Name="Id" />
+      <Dependent Role="Order">
+        <PropertyRef Name="CustomerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Order_Order">
-    <End Role="Status" Type="Self.Status" Multiplicity="1" />
-    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+  <Association Name="FK_For Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Status">
+      <Principal Role="Customer">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="Order">
-        <PropertyRef Name="StatusId" />
+      <Dependent Role="User">
+        <PropertyRef Name="CustomerId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_OrderDetails_Product">
+  <Association Name="FK_For OId">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_For PId">
     <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
     <ReferentialConstraint>
@@ -103,39 +105,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Table_1_Table_1">
-    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
-    <End Role="User" Type="Self.User" Multiplicity="*" />
+  <Association Name="FK_For Status Id">
+    <End Role="Status" Type="Self.Status" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Customer">
+      <Principal Role="Status">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="User">
-        <PropertyRef Name="CustomerId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Table_1_Table_11">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="User1" Type="Self.User" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User1">
-        <PropertyRef Name="Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_User">
-    <End Role="User" Type="Self.User" Multiplicity="1" />
-    <End Role="User1" Type="Self.User" Multiplicity="0..1" />
-    <ReferentialConstraint>
-      <Principal Role="User">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User1">
-        <PropertyRef Name="Id" />
+      <Dependent Role="Order">
+        <PropertyRef Name="StatusId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -145,31 +123,26 @@
     <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Customer_Customer" Association="Self.FK_Customer_Customer">
+    <AssociationSet Name="FK_for _customer" Association="Self.FK_for _customer">
       <End Role="Customer" EntitySet="Customer" />
-      <End Role="Customer1" EntitySet="Customer" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Order_Order" Association="Self.FK_Order_Order">
-      <End Role="Status" EntitySet="Status" />
       <End Role="Order" EntitySet="Order" />
     </AssociationSet>
-    <AssociationSet Name="FK_OrderDetails_Product" Association="Self.FK_OrderDetails_Product">
+    <AssociationSet Name="FK_For Customer" Association="Self.FK_For Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_For OId" Association="Self.FK_For OId">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_For PId" Association="Self.FK_For PId">
       <End Role="Product" EntitySet="Product" />
       <End Role="OrderDetails" EntitySet="OrderDetails" />
     </AssociationSet>
-    <AssociationSet Name="FK_Table_1_Table_1" Association="Self.FK_Table_1_Table_1">
-      <End Role="Customer" EntitySet="Customer" />
-      <End Role="User" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Table_1_Table_11" Association="Self.FK_Table_1_Table_11">
-      <End Role="User" EntitySet="User" />
-      <End Role="User1" EntitySet="User" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_User" Association="Self.FK_User_User">
-      <End Role="User" EntitySet="User" />
-      <End Role="User1" EntitySet="User" />
+    <AssociationSet Name="FK_For Status Id" Association="Self.FK_For Status Id">
+      <End Role="Status" EntitySet="Status" />
+      <End Role="Order" EntitySet="Order" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
