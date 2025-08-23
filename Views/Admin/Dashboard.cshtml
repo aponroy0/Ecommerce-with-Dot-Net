@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+<h2>Dashboard</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Order Placed</th>
+        <th>Processing</th>
+        <th>Cancelled</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td class="p-3">
+                <div class="mb-2">
+                    <strong>Order ID:</strong> @item.Id
+                </div>
+                <div class="mb-2">
+                    <strong>Date:</strong> @item.Date
+                </div>
+                <div class="mb-3">
+                    <strong>Customer ID:</strong> BDT @item.CustomerId
+                </div>
+                <div class="mb-3">
+                    <strong>Total:</strong> BDT @item.Total
+                </div>
+                <div class="btn-group" role="group">
+                    <a class="btn btn-success me-2" href="/order/details/@item.Id">Confirm</a>
+                    <a class="btn btn-danger" href="/order/cancelbyuser/@item.Id">Cancel</a>
+                </div>
+            </td>
+            <td class="p-3"></td>
+            <td class="p-3"></td>
+        </tr>
+    }
+</table>

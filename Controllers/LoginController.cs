@@ -34,8 +34,19 @@ namespace Ecommerce.Controllers
             
             if (user != null)
             {
+
                 Session["user"] = user;
-                return RedirectToAction("Index", "Customer");
+                Session["userRole"] = user.Type; // "Admin" or "User" 
+
+                // Redirect based on user type
+                if (user.Type == "Admin")
+                {
+                    return RedirectToAction("Dashboard", "Admin");
+                }
+                else if (user.Type == "Customer")
+                {
+                    return RedirectToAction("Index", "Customer");
+                }
             }
 
             TempData["msg"] = "Invalid username and password!";
