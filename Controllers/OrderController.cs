@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Ecommerce.Auth;
+using Antlr.Runtime;
+using System.Web.UI;
 
 namespace EComm.Controllers
 {
@@ -43,10 +45,20 @@ namespace EComm.Controllers
                 cart = new List<ProductDTO>();
             }
             else
-            {
-                cart = (List<ProductDTO>)Session["cart"];
+            {     //Unboxing the cart
+                  cart = (List<ProductDTO>)Session["cart"];
             }
-            cart.Add(pr);
+
+            // If products exist in the cart...
+            var exist = (from pro in cart where pro.Id == id select pro).SingleOrDefault();
+            if(exist != null)
+            {
+                exist.Qty++;
+            }
+            else
+            {
+                cart.Add(pr);
+            }
             Session["cart"] = cart;
             return RedirectToAction("Index");
 
@@ -56,6 +68,7 @@ namespace EComm.Controllers
             var cart = (List<ProductDTO>)Session["cart"];
             return View(cart);
         }
+
 
 
 // This scope of code is for cencel the order
@@ -78,5 +91,90 @@ namespace EComm.Controllers
             var od = db.Orders.Find(id);
             return View(od);
         }
+
+// Place Order
+       public ActionResult PlaceOrder(decimal gtotal)
+        {
+            var user = (User)Session["user"];
+            var cart = (List<ProductDTO>)Session["cart"];
+
+            var od = new Order()
+            {
+                Date = DateTime.Now,
+                Total = gtotal,
+                CustomerId = (int)user.CustomerId,
+                StatusId = 1,
+            };
+
+            db.Orders.Add(od);
+            db.SaveChanges();
+
+            foreach (var item in cart)
+            {
+                var odtal = new OrderDetail()
+                {
+                    PId = item.Id,
+                    Qty = item.Qty,
+                    Price = item.Price,
+                    OId = od.Id,
+                };
+                db.OrderDetails.Add(odtal);
+            }
+
+            db.SaveChanges();
+            TempData["msg"] = "Order Placed Successfully";
+            TempData["cart"] = null;
+            return RedirectToAction("Index");
+
+        }
+
+        // Incresing part of the product
+
+        public ActionResult Increase(int id)
+        {
+            var cart = (List<ProductDTO>)Session["cart"];
+            var pq = (from p in cart
+                      where p.Id == id
+                      select p).SingleOrDefault();
+            pq.Qty++;
+            return RedirectToAction("Cart");
+        }
+
+        // Decrease an item
+        public ActionResult Decrease (int id)
+        {
+            var cart = (List<ProductDTO>)Session["cart"];
+            var pq = (from p in cart
+                      where p.Id == id
+                      select p).SingleOrDefault();
+            pq.Qty--;
+            return RedirectToAction("cart");
+        }
+
+        // Clear an item from the cart
+
+        public ActionResult Clear (int id)
+        {
+            var cart = (List<ProductDTO>)Session["cart"];
+            var cl = (from c in cart
+                      where c.Id == id
+                      select c).SingleOrDefault();
+            cart.Remove(cl);
+  
+            if ( cart.Count == 0)
+            {
+                return RedirectToAction("Index");
+            }
+            Session["cart"] = cart;
+            return RedirectToAction("cart");
+        }
+
+
+
+
     }
+
+
+
+
 }

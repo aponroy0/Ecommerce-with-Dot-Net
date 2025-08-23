@@ -1,16 +1,13 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
-
-<h2>Index</h2>
 
 @if (TempData["msg"] != null)
 {
     <p class="alert alert-@TempData["class"]">@TempData["msg"]</p>
 }
 
-<div class="container d-flex align-items-center justify-content-center vh-100">
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 80vh;">
     <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
         <h3 class="card-title text-center mb-4">Login</h3>
         <form method="post">
