@@ -2,6 +2,12 @@
     ViewBag.Title = "Dashboard";
 }
 
+
+@if (TempData["msg"] != null)
+{
+    <p class="alert alert-@TempData["class"]">@TempData["msg"]</p>
+}
+
 <h2>Dashboard</h2>
 
 <table class="table table-bordered">
@@ -28,11 +34,15 @@
                     <strong>Total:</strong> BDT @item.Total
                 </div>
                 <div class="btn-group" role="group">
-                    <a class="btn btn-success me-2" href="/order/details/@item.Id">Confirm</a>
-                    <a class="btn btn-danger" href="/order/cancelbyuser/@item.Id">Cancel</a>
+                    @if (item.StatusId == 1)
+                    {
+                        <a class="btn btn-success me-2" href="/admin/confirm/@item.Id">Confirm</a>
+                        <a class="btn btn-danger" href="/admin/cancelbyadmin/@item.Id">Cancel</a>
+                    }
+
                 </div>
             </td>
-            <td class="p-3"></td>
+            <td class="p-3">@item.Status.Name </td>
             <td class="p-3"></td>
         </tr>
     }
